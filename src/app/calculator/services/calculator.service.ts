@@ -28,8 +28,39 @@ export class CalculatorService {
       this.calculateResult();
       console.log('Calcular resultado');
       return;
-
     }
+
+    if(value == "%"){
+      const valorBase = parseFloat(this.subResultText());
+      const porcentaje = parseFloat(this.resultText())/100;
+      let incremento = valorBase * porcentaje;
+      let result:any;
+
+      switch(this.lastOperator()){
+        case '+':
+          incremento = valorBase* porcentaje;
+          result = valorBase + incremento;
+          break;
+        case '-':
+          result = valorBase - incremento;
+          break;
+        case '*':
+          result = valorBase * incremento;
+          break;
+        case 'x':
+          result = valorBase * incremento;
+          break;
+        case '/':
+          result =valorBase / incremento;
+          break;
+        case '÷':
+          result = valorBase / incremento;
+          break;
+      }
+      this.resultText.set(result.toString());
+      this.subResultText.set('0');
+    }
+
     //Limpiar resultado
     if(value === 'C'){
       console.log('Borro');
@@ -126,6 +157,7 @@ export class CalculatorService {
     const number1 = parseFloat(this.subResultText());
     const number2 = parseFloat(this.resultText());
 
+
     let result = 0
 
     // Realizar las operaciones
@@ -148,8 +180,14 @@ export class CalculatorService {
       case '÷':
         result = number1 / number2
         break;
-    }
+      case '%':
+        console.log(this.subResultText());
+        console.log(this.resultText());
+        console.log( this.resultText());
 
+
+
+    }
     this.resultText.set(result.toString());
     this.subResultText.set('0');
   }

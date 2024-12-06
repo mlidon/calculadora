@@ -36,6 +36,86 @@ describe('CalculatorService',()=>{
     expect(service.lastOperator()).toBe('+');
   })
 
+  //Evaluamos que todos los valores que introducimos se muestren correctamente.
+  it('should update resultText with number input',()=>{
+    service.constructNumber('1');
+    expect(service.resultText()).toBe('1');
+
+    service.constructNumber('2');
+    expect(service.resultText()).toBe('12');
+  })
+
+  //Manejo de operadores correctamente.
+  it('should handle operators correctly', () =>{
+    service.constructNumber('1');
+    service.constructNumber('-');
+
+    expect(service.lastOperator()).toBe('-');
+    expect(service.subResultText()).toBe('1');
+    expect(service.resultText()).toBe('0');
+  })
+
+   //Resultado del calculo de operaciones de suma .
+   it('should calculate result correctly for addition', () =>{
+    service.constructNumber('2');
+    service.constructNumber('+');
+    service.constructNumber('3');
+    service.constructNumber('=');
+
+    expect(service.resultText()).toBe('5');
+  })
+
+  //Resultado del calculo de operaciones de resta.
+  it('should calculate result correctly for substraction', () =>{
+    service.constructNumber('+/-');
+    service.constructNumber('2');
+    service.constructNumber('-');
+    service.constructNumber('3');
+    service.constructNumber('=');
+
+    expect(service.resultText()).toBe('-5');
+  })
+
+  //Resultado del calculo de operaciones de multiplicación.
+  it('should calculate result correctly for multiplication', () =>{
+    service.constructNumber('+/-');
+    service.constructNumber('2');
+    service.constructNumber('*');
+    service.constructNumber('2');
+    service.constructNumber('=');
+
+    expect(service.resultText()).toBe('-4');
+  })
+
+   //Resultado del calculo de operaciones de división.
+   it('should calculate result correctly for division', () =>{
+    service.constructNumber('2');
+    service.constructNumber('5');
+    service.constructNumber('÷');
+    service.constructNumber('5');
+    service.constructNumber('=');
+
+    expect(service.resultText()).toBe('5');
+  })
+
+  //Resultado del calculo de operaciones de porcentaje.
+  it('should calculate result correctly for division', () =>{
+    service.constructNumber('1');
+    service.constructNumber('5');
+    service.constructNumber('0');
+    service.constructNumber('0');
+    service.constructNumber('+');
+    service.constructNumber('2');
+    service.constructNumber('5');
+    service.constructNumber('%');
+    service.constructNumber('=');
+
+    expect(service.resultText()).toBe('1875');
+  })
+
+
+
+
 });
 
 
